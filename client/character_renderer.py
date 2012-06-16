@@ -26,9 +26,20 @@ class ClassRenderer(object):
             sprite.scale = (1, 1)
             sprite.origin = self.spriteoffset
 
-        sprite.position = renderer.get_screen_coords(character.x, character.y)
-
+        sprite.position = renderer.get_screen_coords(character.x +game.horizontal, character.y + game.vertical)
         renderer.window.draw(sprite)
+        #draw mask
+        #broken
+        rect_location = renderer.get_screen_coords(character.x, character.y)
+        
+        rect_size= character.collision_mask.get_size()
+        rect_mask = sfml.RectangleShape(rect_size)
+        
+        rect_mask.fill_color = (sfml.Color(153,0,153,1))
+        rect_mask.position = (rect_location)
+        renderer.window.draw(rect_mask)
+        
+        
         #draw mask
         #w, h = character.collision_mask.get_size()
         #location =  renderer.get_screen_coords(character.x, character.y)
@@ -105,3 +116,4 @@ class QuoteRenderer(ClassRenderer):
 
         self.spriteoffset = (16, -1)
         self.spriteoffset_flipped = (16, -1)
+        
