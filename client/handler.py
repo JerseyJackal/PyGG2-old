@@ -7,7 +7,12 @@ class ClientManager(object):
     def __init__(self, handler):
         # set display mode
         self.window = sfml.RenderWindow(sfml.VideoMode(800, 600), title = "PyGG2 - Not Connected")
-       
+        try:
+            icon_image = sfml.Image.load_from_file('gg2.png')
+            self.window.set_icon(icon_image.width, icon_image.height, icon_image.get_pixels())
+        except sf.PySFMLException as e:
+            print("Unable to load gg2.png")
+
         self.load_config()
         self.window.framerate_limit = self.config.setdefault('framerate_limit', 80) #prevent 100% cpu usage
         self.quitting = False
